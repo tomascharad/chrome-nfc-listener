@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+
+  "name": "Chrome Nfc Listener",
+  "description": "Listens to Nfc serial monitor messages",
+  "version": "1.0",
+
+  "background": {
+    "persistent": true,
+    "scripts": ["bg.js"]
+  },
+  "permissions": [
+    "tabs"
+  ]
+}
