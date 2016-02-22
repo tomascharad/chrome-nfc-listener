@@ -3,7 +3,7 @@
 
   "name": "Chrome Nfc Listener",
   "description": "Listens to Nfc serial monitor messages",
-  "version": "1.1",
+  "version": "1.11",
 
   "icons": { "128": "DispatchApp.png" },
 
