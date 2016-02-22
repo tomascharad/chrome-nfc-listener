@@ -6,6 +6,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   } else if (request.busInternalCode) {
     request.busInternalCode = parseInt(request.busInternalCode).toString();
     var event = new CustomEvent('busInternalCodeReceived', {detail: request});
+  } else if (request.direction) {
+    request.busInternalCode = parseInt(request.busInternalCode).toString();
+    var event = new CustomEvent('serviceDirectionDataReceived', {detail: request});
   }
   window.dispatchEvent(event);
   sendResponse({farewell: 'Received', object: request});

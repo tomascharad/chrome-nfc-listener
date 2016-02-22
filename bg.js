@@ -10,7 +10,24 @@ chrome.runtime.onMessageExternal.addListener(function(message, sender, sendRespo
     busDataReceived(buffer);
     buffer = '';
   }
+  if (buffer.match('.*PRESENT:\\$SEN\\$.*\\$.*')) {
+    serviceDirectionDataReceived(buffer);
+    buffer = '';
+  }
 });
+function serviceDirectionDataReceived(directionData) {
+  console.log('SERVICE DIRECTION!');
+  console.log(directionData);
+  var directionDataArray = directionData.split('$')[3].split('-');
+  var lineCode = directionDataArray[0];
+  var directionString = directionDataArray[1];
+  var direction = 'I';
+  
+  if (directionString == 'IDA') {
+    direction = 'O';
+  }
+  sendMessage({direction: direction, lineCode: lineCode});
+}
 
 function driverDataReceived(driverData) {
   sendMessage({driverId: driverData.match('[0-9]*-[0-9]|K|k')[0]});
@@ -35,4 +52,4 @@ function sendMessage (message) {
   });
 }
 
-console.log('started');
+console.log('started1');
