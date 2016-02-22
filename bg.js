@@ -3,18 +3,23 @@ chrome.runtime.onMessageExternal.addListener(function(message, sender, sendRespo
   var messageString = message.data.toString();
   buffer = buffer + messageString;
   if (buffer.match('.*PRESENT:\\$CON\\$.*\\$.*')) {
-    driverDataReceived(buffer);
+    driverDataReceived(stripLineBreaks(buffer));
     buffer = '';
   }
   if (buffer.match('.*PRESENT:\\$BUS\\$.*\\$.*')) {
-    busDataReceived(buffer);
+    busDataReceived(stripLineBreaks(buffer));
     buffer = '';
   }
   if (buffer.match('.*PRESENT:\\$SEN\\$.*\\$.*')) {
-    serviceDirectionDataReceived(buffer);
+    serviceDirectionDataReceived(stripLineBreaks(buffer));
     buffer = '';
   }
 });
+
+function stripLineBreaks (string) {
+  return string.replace(/[^\x20-\x7E]/gmi, '');
+}
+
 function serviceDirectionDataReceived(directionData) {
   console.log('SERVICE DIRECTION!');
   console.log(directionData);
